@@ -939,9 +939,14 @@
 <div id="ink" class="boot"><div class="ink-wait"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" stroke-width="2.6" stroke-dasharray="120 163"/>
   <circle cx="50" cy="50" r="41" stroke-width="1.2" stroke-dasharray="36 222" stroke-dashoffset="-150" opacity=".6"/></svg><i>無雙</i></div></div>
 <script>
-  // boot failure (a module that 404s or won't link, e.g. a stale cached copy next to fresh ones): the page opens under the
-  // ink and only main.js lifts it, so say what happened instead of turning the seal forever
-  addEventListener('error', () => {
+  // Only a game script failure should replace the loading screen. Missing optional assets,
+  // such as the fallback font, must not interrupt the game.
+  addEventListener('error', (event) => {
+    const failedGameScript = event.target instanceof HTMLScriptElement &&
+      event.target.src.endsWith('/game.js');
+    const gameRuntimeError = event.target === window &&
+      /(?:^|\/)game\.js(?:$|\?)/.test(event.filename || '');
+    if (!failedGameScript && !gameRuntimeError) return;
     const w = document.querySelector('#ink.boot .ink-wait');
     if (w) w.innerHTML = '<p>載入失敗<small>Failed to load · force-reload (Ctrl/Cmd+Shift+R)</small></p>';
   }, true);
