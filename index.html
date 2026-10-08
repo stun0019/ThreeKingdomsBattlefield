@@ -14,9 +14,9 @@
   :root { --brush: "Xingkai SC", "STXingkai", "HudBrush", serif; --kai: "Kaiti SC", "STKaiti", "KaiTi", "HudBrush", serif;
     --sans: "Avenir Next", "Helvetica Neue", sans-serif; }
   /* Portable brush fallback for machines without the macOS Xingkai/Kaiti assets: Yuji Boku (SIL OFL 1.1, Kinuta Font
-     Factory), subset to the HUD's glyphs (src/ui/brush.woff2). Only fetched when the fonts before it are missing.
+     Factory), subset to the HUD's glyphs (brush.woff2). Only fetched when the fonts before it are missing.
      When you add HUD text with new CJK characters, re-subset (Google Fonts css2?family=Yuji+Boku&text=...). */
-  @font-face { font-family: "HudBrush"; src: url(./src/ui/brush.woff2) format("woff2"); font-display: swap; }
+  @font-face { font-family: "HudBrush"; src: url(./brush.woff2) format("woff2"); font-display: swap; }
   #hud { position: fixed; inset: 0; pointer-events: none; color: #f4ead8; user-select: none; overflow: hidden;
     --gold: #f2c14e; --teal: #3fb8b0; --seal: #b3261e;
     font-family: var(--kai); text-shadow: 0 .2rem .3rem rgba(0,0,0,.7); }
